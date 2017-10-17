@@ -1,8 +1,7 @@
 <br>
 <br>
 <Center>
-<h1>Welkom bij uw Movie generator></h1>
-<br>
+<h1>Welkom bij uw MovieList voor u en uw gezin</h1>
 <br>
     <p>Onderstaande films heeft u al bekeken</p>
     {{#movieList}}
@@ -10,26 +9,41 @@
     {{/movieList}}
 <br>
 <br>
-<p>welke film wilt u opzoeken en toevoegen aan uw collectie?</p>
-<FORM METHOD="post" ACTION="bestemming">
-    <I>Vul hier de filmnaam in die u wil opzoeken</I>
-    <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+</Center>
+
+    <p><b>Welke film wilt u online opzoeken en toevoegen aan uw collectie?</b></p>
+<FORM METHOD="post" ACTION="MovieRepository">
+    <I>vul hier de filmnaam in</I>
+    <INPUT TYPE="text" NAME="movieName" SIZE="20" MAXLENGTH="30"><BR>
     <BR>
     <I>Vul hier het jaar in van de film</I>
-    <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+    <INPUT TYPE="text" NAME="movieDate" SIZE="20" MAXLENGTH="30"><BR>
     <BR>
     <INPUT TYPE="reset" VALUE="Reset">
-    <INPUT TYPE="submit" VALUE="Zoeken">
+    <INPUT TYPE="search" VALUE="Zoeken">
+    <br>
+    <br>
 </FORM>
-    <p>welke film wilt u handmatig toevoegen aan uw collectie?</p>
+    <p><b>Welke film wilt u handmatig toevoegen aan uw collectie?</b></p>
     <FORM METHOD="post" ACTION="bestemming">
         <I>Vul hier de filmnaam in</I>
-        <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+        <INPUT TYPE="text" NAME="movieName" SIZE="20" MAXLENGTH="30"><BR>
         <BR>
         <I>Vul hier het jaar in van de film</I>
-        <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+        <INPUT TYPE="text" NAME="movieDate" SIZE="20" MAXLENGTH="30"><BR>
         <BR>
+        <I>Vanaf welke leeftijd wilt u dat er naar deze film gekeken kan worden?</I>
+        <INPUT TYPE="text" NAME="suitableNameAge" SIZE="5" MAXLENGTH="30"><BR>
+        <BR>
+        <I>Genre van de film</I>
+        <select>
+            <option value="Horror">Horror</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Action">Action</option>
+            <option value="Romance">Romance</option>
+        </select>
+        <br>
+        <br>
         <INPUT TYPE="reset" VALUE="Reset">
-        <INPUT TYPE="submit" VALUE="Zoeken">
+        <INPUT TYPE="submit" VALUE="Toevoegen" id="submitButton">
     </FORM>
-</Center>

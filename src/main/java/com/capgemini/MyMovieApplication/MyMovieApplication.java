@@ -1,4 +1,4 @@
-package com.capgemini.MyHotelApplication;
+package com.capgemini.MyMovieApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

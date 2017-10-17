@@ -9,6 +9,5 @@ public class Validators {
         final Pattern pattern = Pattern.compile("([0-9]){1,2}", Pattern.CASE_INSENSITIVE);
         Matcher p = pattern.matcher(suitableAgeMovie);
         return p.find();
-
     }
 }

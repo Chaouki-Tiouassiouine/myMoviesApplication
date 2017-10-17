@@ -1,4 +1,4 @@
-package com.capgemini.MyHotelApplication;
+package com.capgemini.MyMovieApplication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

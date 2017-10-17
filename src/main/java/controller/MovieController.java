@@ -9,18 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import repository.MovieRepository;
 import repository.WatchedMovieRepository;
 import utils.Validators;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class MovieController { //methode voor het ophalen van een film, toevoegen van een film en afvinken van een film
+public class MovieController {
+    //methode voor het ophalen van een film, toevoegen van een film en toevoegen van een bekeken film naar een aparte repository
 
     @Autowired
     private WatchedMovieRepository watchedMovieRepository;
@@ -31,14 +27,16 @@ public class MovieController { //methode voor het ophalen van een film, toevoege
     public MovieController() {
     }
 
+    //Met deze methode zorg ik ervoor dat ik alle movies ophaal, zowel gekeken als niet gekeken
     @RequestMapping(method = RequestMethod.GET, value = "/getMovieList")
-    //Met deze methode zorg ik ervoor dat ik alle movies ophaal
     public List<Movie> movieList() {
         List<Movie> list = new ArrayList<>();
         movieRepository.findAll().forEach(list::add);
+        watchedMovieRepository.findAll().forEach(list::add);
         return list;
     }
 
+    //Code is nog niet bruikbaar, wil hier graag een methode maken met een connectie met IMBD API
 //    private String apiURL = "http://img.omdbapi.com/?apikey=[yourkey]&";
 //    public void searchForMovie() {
 //        try {
@@ -51,8 +49,8 @@ public class MovieController { //methode voor het ophalen van een film, toevoege
 //                // Converteer teruggekeerde string naar JSON
 //                JSONObject jsonObj = new JSONObject(output);
 //                JSONObject main = jsonObj.getJSONObject("main");
-//                JSONArray weather = jsonObj.getJSONArray("weather");
-//                int weatherId =  (int) weather.getJSONObject(0).get("id");
+//                JSONArray weather = jsonObj.getJSONArray("movie");
+//                int movieId =  (int) movie.getJSONObject(0).get("id");
 //            }
 //        } catch (IOException e) {
 //            System.out.println("Geen movies beschikbaar op het moment van de externe database");
@@ -62,9 +60,8 @@ public class MovieController { //methode voor het ophalen van een film, toevoege
 //    private String convertStreamToString(InputStream stream) {
 //    }
 
-
-    @RequestMapping(method = RequestMethod.POST, value = "/addManuallyMovie")
     //Met deze methode voeg ik een movie toe, zie de validaties voor datum toegevoegd en check of suitable age wel daadwerkelijk een getal is tussen de 0 en 100
+    @RequestMapping(method = RequestMethod.POST, value = "/addManuallyMovie")
     public Movie addManuallyMovie(@RequestBody Movie movie) {
         if (Validators.suitableMovieAgeMatcher(movie.getSuitableAgeMovie()) &&
                 (movie.getMovieDate().isBefore(LocalDate.now()))) {
@@ -74,13 +71,27 @@ public class MovieController { //methode voor het ophalen van een film, toevoege
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/addWatchedMovie")
     //Met deze methode voeg ik een vinkje toe aan movie die ik heb gezien
+    @RequestMapping(method = RequestMethod.POST, value = "/addWatchedMovie")
     public Movie addWatchedMovie(@RequestBody Movie movie) {
         if (movie.isMovieWatched()) {
             return watchedMovieRepository.save(movie);
         }
         else
         return null;
+    }
+
+    //met deze methode wil ik de optie hebben om een film die handmatig is toegevoegd ook te kunnen wijzigen
+    @RequestMapping(value = "/changeMovie", method = RequestMethod.POST)
+    public Movie changeMovie(@RequestBody Movie movie) {
+        movieRepository.delete(movie);
+        return movieRepository.save(movie);
+    }
+
+    //Met deze methode wil ik dat de movie verwijderd kan worden
+    @RequestMapping(value = "/deleteMovie", method = RequestMethod.POST)
+    public void deleteMovie(@RequestBody Movie movie) {
+        movieRepository.delete(movie);
+        watchedMovieRepository.delete(movie);
     }
 }
