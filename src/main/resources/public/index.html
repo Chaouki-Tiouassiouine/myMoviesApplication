@@ -1,0 +1,35 @@
+<br>
+<br>
+<Center>
+<h1>Welkom bij uw Movie generator></h1>
+<br>
+<br>
+    <p>Onderstaande films heeft u al bekeken</p>
+    {{#movieList}}
+    <p>- {{movieName}} {{genre}} {{movieDate}} {{suitableAgeMovie}}({{movieWatched}})</p>
+    {{/movieList}}
+<br>
+<br>
+<p>welke film wilt u opzoeken en toevoegen aan uw collectie?</p>
+<FORM METHOD="post" ACTION="bestemming">
+    <I>Vul hier de filmnaam in die u wil opzoeken</I>
+    <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+    <BR>
+    <I>Vul hier het jaar in van de film</I>
+    <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+    <BR>
+    <INPUT TYPE="reset" VALUE="Reset">
+    <INPUT TYPE="submit" VALUE="Zoeken">
+</FORM>
+    <p>welke film wilt u handmatig toevoegen aan uw collectie?</p>
+    <FORM METHOD="post" ACTION="bestemming">
+        <I>Vul hier de filmnaam in</I>
+        <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+        <BR>
+        <I>Vul hier het jaar in van de film</I>
+        <INPUT TYPE="text" NAME="naam" SIZE="20" MAXLENGTH="30"><BR>
+        <BR>
+        <INPUT TYPE="reset" VALUE="Reset">
+        <INPUT TYPE="submit" VALUE="Zoeken">
+    </FORM>
+</Center>
